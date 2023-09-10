@@ -9,9 +9,9 @@ kubes: cluster qdrant
 ## create k3s cluster
 cluster:
 	k3d cluster create $(cluster) --registry-create $(cluster)-registry:0.0.0.0:5550 \
-		-p 6333:6333@loadbalancer -p 6334:6334@loadbalancer --wait
+		-p 6333:80@loadbalancer --wait
 	@k3d kubeconfig write $(cluster) > /dev/null
-	@echo "Probing until traefik CRDs are created (~60 secs)..."
+	@echo "Probing until cluster is ready (~60 secs)..."
 	@while ! kubectl get crd ingressroutes.traefik.containo.us 2> /dev/null ; do sleep 10 && echo $$((i=i+10)); done
 	@echo -e "\nTo use your cluster set:\n"
 	@echo "export KUBECONFIG=$(KUBECONFIG)"
@@ -19,8 +19,8 @@ cluster:
 ## deploy qdrant to kubes
 qdrant:
 	helm repo add qdrant https://qdrant.github.io/qdrant-helm
-	helm repo update
-	helm upgrade --install qdrant qdrant/qdrant --version=0.5.0 --wait --debug > /dev/null
+	helm repo update qdrant
+	helm upgrade --install qdrant qdrant/qdrant --version=0.5.0 --values infra/values.yaml --wait --debug > /dev/null
 
 ## show kube logs
 logs:

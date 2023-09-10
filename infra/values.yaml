@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+  hosts:
+    # an empty name will create a rule without a host, which routes all
+    # port 80 ingress traffic to the service
+    - host: ""
+      paths:
+        - path: /
+          pathType: Prefix
+          servicePort: 6333
