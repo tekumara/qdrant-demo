@@ -22,6 +22,10 @@ qdrant:
 	helm repo update qdrant
 	helm upgrade --install qdrant qdrant/qdrant --version=0.5.0 --values infra/values.yaml --wait --debug > /dev/null
 
+## fetcb cluster endpoint
+ping:
+	curl -s http://localhost:6333/cluster | jq .
+
 ## show kube logs
 logs:
 	kubectl logs -l "app.kubernetes.io/name=qdrant,app.kubernetes.io/instance=qdrant" -f --tail=-1

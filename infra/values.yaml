@@ -1,3 +1,5 @@
+replicaCount: 3
+
 ingress:
   enabled: true
   hosts:
@@ -8,3 +10,11 @@ ingress:
         - path: /
           pathType: Prefix
           servicePort: 6333
+
+persistence:
+  # set size of pvc
+  # NB: see https://github.com/qdrant/qdrant-helm/issues/34 for how to resize after creation
+  size: 1Gi
+
+# enable rolling update when config values change
+updateConfigurationOnChange: true
