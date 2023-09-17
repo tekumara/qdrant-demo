@@ -1,6 +1,6 @@
 include *.mk
 
-cluster=qdrant
+cluster?=qdrant
 export KUBECONFIG=$(HOME)/.k3d/kubeconfig-$(cluster).yaml
 
 ## create cluster and deploy qdrant
@@ -8,8 +8,7 @@ kubes: cluster qdrant
 
 ## create k3s cluster
 cluster:
-	k3d cluster create $(cluster) --registry-create $(cluster)-registry:0.0.0.0:5550 \
-		-p 6333:80@loadbalancer --wait
+	k3d cluster create $(cluster) -p 6333:80@loadbalancer --wait
 	@k3d kubeconfig write $(cluster) > /dev/null
 	@echo "Probing until cluster is ready (~60 secs)..."
 	@while ! kubectl get crd ingressroutes.traefik.containo.us 2> /dev/null ; do sleep 10 && echo $$((i=i+10)); done
@@ -29,9 +28,3 @@ ping:
 ## show kube logs
 logs:
 	kubectl logs -l "app.kubernetes.io/name=qdrant,app.kubernetes.io/instance=qdrant" -f --tail=-1
-
-## forward traefik dashboard
-tdashboard:
-	@echo Forwarding traefik dashboard to http://localhost:8999/dashboard/
-	tpod=$$(kubectl get pod -n kube-system -l app.kubernetes.io/name=traefik -o custom-columns=:metadata.name --no-headers=true) && \
-		kubectl -n kube-system port-forward $$tpod 8999:9000
