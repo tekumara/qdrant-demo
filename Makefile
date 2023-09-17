@@ -19,7 +19,7 @@ cluster:
 qdrant:
 	helm repo add qdrant https://qdrant.github.io/qdrant-helm
 	helm repo update qdrant
-	helm upgrade --install qdrant qdrant/qdrant --version=0.5.0 --values infra/values.yaml --wait --debug > /dev/null
+	helm upgrade --install qdrant qdrant/qdrant --version=0.5.1 --values infra/values.yaml --wait --debug > /dev/null
 
 ## fetch cluster endpoint
 ping:
