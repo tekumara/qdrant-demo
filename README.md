@@ -16,6 +16,18 @@ Create k3d cluster and deploy qdrant:
 make kubes
 ```
 
+Create `birds` collection:
+
+```
+make birds
+```
+
+Search:
+
+```
+make search
+```
+
 ## Usage
 
 Endpoints:

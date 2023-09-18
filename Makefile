@@ -25,6 +25,14 @@ qdrant:
 ping:
 	curl -s http://localhost:6333/cluster | jq .
 
+## create birds collection
+birds: $(venv)
+	$(venv)/bin/python -m demo.qdrant
+
+## search birds collection
+search:
+	@curl -s -L -X POST 'http://localhost:6333/collections/birds/points/search' -H 'Content-Type: application/json' --data-raw '{"vector": [0.1,0.1,0.1,0.1], "top": 3, "with_payload":true}'
+
 ## show kube logs
 logs:
 	kubectl logs -l "app.kubernetes.io/name=qdrant,app.kubernetes.io/instance=qdrant" -f --tail=-1
