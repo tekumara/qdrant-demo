@@ -1,4 +1,10 @@
+## see https://github.com/qdrant/qdrant-helm/blob/main/charts/qdrant/values.yaml
+
 replicaCount: 3
+
+image:
+  repository: qdrant/qdrant
+  tag: v1.5.1-unprivileged
 
 ingress:
   enabled: true
