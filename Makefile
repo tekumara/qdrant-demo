@@ -32,6 +32,9 @@ birds: $(venv)
 search:
 	@curl -s -L -X POST 'http://localhost:6333/collections/birds/points/search' -H 'Content-Type: application/json' --data-raw '{"vector": [0.1,0.1,0.1,0.1], "top": 3, "with_payload":true}'
 
+scroll:
+	@curl 'http://localhost:6333/collections/birds/points/scroll' -H 'Content-Type: application/json' --data-raw '{"limit":10,"offset":null,"with_payload":true,"with_vector":true}'
+
 ## show kube logs
 logs:
 	kubectl logs -l "app.kubernetes.io/name=qdrant,app.kubernetes.io/instance=qdrant" -f --tail=-1
