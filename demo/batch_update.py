@@ -42,17 +42,25 @@ def main():
         vectors_config=models.VectorParams(
             size=VECTOR_SIZE, distance=models.Distance.EUCLID
         ),
+        replication_factor=3
     )
 
     print("batch_update_points")
 
-    point = models.PointStruct(
+    point1 = models.PointStruct(
         id=1,
         vector=[1.0, 1.0, 1.0, 1.0],
         payload=dict(name="Wren", species="Troglodytes troglodytes", lifespan=7),
     )
 
-    up_op = models.UpsertOperation(upsert=models.PointsList(points=[point]))
+    point2 = models.PointStruct(
+        id=1,
+        vector=[1.0, 1.0, 1.0, 1.0],
+        payload=dict(name="Wren", species="A nice bird", lifespan=10),
+    )
+
+    up_op1 = models.UpsertOperation(upsert=models.PointsList(points=[point1]))
+    up_op2 = models.UpsertOperation(upsert=models.PointsList(points=[point2]))
     del_op = models.DeleteOperation(
         delete=models.FilterSelector(
             filter=models.Filter(
@@ -65,15 +73,16 @@ def main():
         )
     )
 
-    ops = [up_op, del_op] * 1
+    ops = [up_op1, del_op, up_op2] * 10000
 
     qdrant_client.batch_update_points(
         collection_name=COLLECTION_NAME,
         update_operations=ops,
         wait=False,
-        ordering=types.WriteOrdering.STRONG,
+        ordering=types.WriteOrdering.WEAK,
     )
 
+    print("scroll")
     res = qdrant_client.scroll(
         collection_name=COLLECTION_NAME,
     )
