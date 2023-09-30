@@ -75,7 +75,7 @@ def main():
     )
 
     res = qdrant_client.scroll(
-        collection_name=COLLECTION_NAME, query_vector=[float(1)] * VECTOR_SIZE, limit=3
+        collection_name=COLLECTION_NAME,
     )
     print(res)
 
