@@ -1,6 +1,7 @@
 from typing import Iterable, List
 
 from qdrant_client import QdrantClient, models
+from qdrant_client.conversions import common_types as types
 
 BATCH_SIZE = 256
 COLLECTION_NAME = "birds"
@@ -29,7 +30,7 @@ def mock_vectors(size: int, count: int) -> Iterable[List[float]]:
 
 
 def main():
-    qdrant_client = QdrantClient(host="127.0.0.1", port=6333)
+    qdrant_client = QdrantClient(host="127.0.0.1", prefer_grpc=True, port=6333)
 
     payload = BIRDS
 
