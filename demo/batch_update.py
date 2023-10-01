@@ -30,7 +30,7 @@ def mock_vectors(size: int, count: int) -> Iterable[List[float]]:
 
 
 def main():
-    qdrant_client = QdrantClient(host="127.0.0.1", port=6333, prefer_grpc=True, timeout=60*5)
+    qdrant_client = QdrantClient(host="127.0.0.1", port=6333, prefer_grpc=True, timeout=20)
 
     payload = BIRDS
 

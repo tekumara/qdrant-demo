@@ -32,7 +32,7 @@ def mock_vectors(size: int, count: int) -> Iterable[List[float]]:
 
 async def main():
     qdrant_client = QdrantClient(
-        host="127.0.0.1", port=6333, prefer_grpc=True, timeout=60 * 5
+        host="127.0.0.1", port=6333, prefer_grpc=True, timeout=20
     )
 
     grpc_collections = qdrant_client.async_grpc_collections
@@ -62,8 +62,6 @@ async def main():
             ),
         )
     )
-
-    print("batch_update_points")
 
     point1 = grpc.PointStruct(
         id=grpc.PointId(num=1),
