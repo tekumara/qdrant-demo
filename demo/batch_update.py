@@ -42,7 +42,8 @@ def main():
         vectors_config=models.VectorParams(
             size=VECTOR_SIZE, distance=models.Distance.EUCLID
         ),
-        replication_factor=3
+        replication_factor=3,
+        write_consistency_factor=3
     )
 
     print("batch_update_points")

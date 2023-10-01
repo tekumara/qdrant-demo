@@ -60,6 +60,8 @@ async def main():
                     size=VECTOR_SIZE, distance=grpc.Distance.Euclid
                 )
             ),
+            replication_factor=3,
+            write_consistency_factor=3
         )
     )
 
@@ -103,7 +105,7 @@ async def main():
     print("UpdateBatch")
     await grpc_points.UpdateBatch(
         grpc.UpdateBatchPoints(
-            collection_name=COLLECTION_NAME, operations=ops, wait=True
+            collection_name=COLLECTION_NAME, operations=ops, wait=False
         )
     )
 
