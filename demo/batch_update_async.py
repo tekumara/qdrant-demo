@@ -43,7 +43,7 @@ async def main():
     mock_vectors(VECTOR_SIZE, len(payload))
 
     print("List")
-    res = await grpc_collections.List(grpc.ListCollectionsRequest(), timeout=1.0)
+    res = await grpc_collections.List(grpc.ListCollectionsRequest())
     print(res)
 
     print("Delete")
@@ -105,8 +105,8 @@ async def main():
     print("UpdateBatch")
     await grpc_points.UpdateBatch(
         grpc.UpdateBatchPoints(
-            collection_name=COLLECTION_NAME, operations=ops, wait=False
-        )
+            collection_name=COLLECTION_NAME, operations=ops, wait=False,
+        ), timeout=20
     )
 
     print("Scroll")
