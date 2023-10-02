@@ -5,6 +5,7 @@ replicaCount: 3
 image:
   repository: qdrant/qdrant
   tag: v1.5.1
+  useUnprivilegedImage: true
 
 persistence:
   # set size of pvc
