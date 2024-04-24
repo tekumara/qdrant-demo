@@ -42,3 +42,11 @@ Endpoints:
 - [Quick Start using curl](https://github.com/qdrant/qdrant/blob/master/QUICK_START.md)
 - [Quick Start using python](https://qdrant.tech/documentation/quick-start/)
 - [API Docs](https://qdrant.github.io/qdrant/redoc/index.html)
+
+## Known issues
+
+- [#3360 Failed send message to http://qdrant-1.qdrant-headless:6335/ with error: Error in closure supplied to transport channel pool: status: Unavailable](https://github.com/qdrant/qdrant/issues/3360) during indexing
+- Documents
+- [Snapshot storage on S3 #3324](https://github.com/qdrant/qdrant/issues/3324)
+- [Cluster level snapshot API #2763](https://github.com/qdrant/qdrant/issues/2763)
+- [Empty points appearing](https://github.com/qdrant/qdrant/issues/3294)

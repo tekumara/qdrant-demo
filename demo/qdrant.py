@@ -1,7 +1,5 @@
 from typing import Iterable, List
-
 from qdrant_client import QdrantClient, models
-from qdrant_client.conversions import common_types as types
 
 BATCH_SIZE = 256
 COLLECTION_NAME = "birds"

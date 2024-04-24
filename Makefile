@@ -17,7 +17,7 @@ cluster:
 
 ## deploy qdrant to kubes
 qdrant:
-	helm upgrade --install --repo https://qdrant.github.io/qdrant-helm qdrant qdrant --version=0.5.1 --values infra/values.yaml --wait --debug > /dev/null
+	helm upgrade --install --repo https://qdrant.github.io/qdrant-helm qdrant qdrant --version=0.7.4 --values infra/values.yaml --wait --debug > /dev/null
 	kubectl apply -f infra/ingress.yaml
 
 ## fetch cluster endpoint
