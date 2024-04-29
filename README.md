@@ -49,4 +49,4 @@ Endpoints:
 - Documents
 - [Snapshot storage on S3 #3324](https://github.com/qdrant/qdrant/issues/3324)
 - [Cluster level snapshot API #2763](https://github.com/qdrant/qdrant/issues/2763)
-- [Empty points appearing](https://github.com/qdrant/qdrant/issues/3294)
+- Points with empty payloads

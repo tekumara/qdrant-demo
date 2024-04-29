@@ -4,8 +4,16 @@ replicaCount: 3
 
 image:
   repository: qdrant/qdrant
-  tag: v1.7.3
+  tag: v1.9.0
   useUnprivilegedImage: true
+
+resources:
+  requests:
+    cpu: 1000m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 256Mi
 
 persistence:
   # set size of pvc
