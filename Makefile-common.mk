@@ -16,8 +16,8 @@ $(pip):
 	$(venv)/bin/python --version
 	$(pip) install pip~=23.1 wheel~=0.40
 
-$(venv): $(if $(value CI),|,) demo/pyproject.toml $(pip)
-	$(pip) install -e 'demo'
+$(venv): $(if $(value CI),|,) pyproject.toml $(pip)
+	$(pip) install -e .
 	touch $(venv)
 
 # delete the venv

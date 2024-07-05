@@ -51,8 +51,11 @@ Individual node dashboards:
 
 ## Known issues
 
-- [#3360 Failed send message to http://qdrant-1.qdrant-headless:6335/ with error: Error in closure supplied to transport channel pool: status: Unavailable](https://github.com/qdrant/qdrant/issues/3360) during indexing
-- Documents
+> Internal communication channels are never protected by an API key nor bearer tokens. Internal gRPC uses port 6335 by default if running in distributed mode. You must ensure that this port is not publicly reachable and can only be used for node communication
+
+- [#3360 Failed send message to http://qdrant-1.qdrant-headless:6335/ with error: Error in closure supplied to transport channel pool: status: Unavailable](https://github.com/qdrant/qdrant/issues/3360) during indexing because of OOM errors
+- [Backpressure when updating points to avoid OOM](https://github.com/qdrant/qdrant/issues/4169)
 - [Snapshot storage on S3 #3324](https://github.com/qdrant/qdrant/issues/3324)
 - [Cluster level snapshot API #2763](https://github.com/qdrant/qdrant/issues/2763)
+- [Optimistic concurrency control](https://github.com/qdrant/qdrant/issues/2749)
 - Points with empty payloads
