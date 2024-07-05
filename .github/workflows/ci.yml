@@ -25,6 +25,7 @@ jobs:
       - run: make kubes
       - run: make deploy
       - run: make ping
+      - run: make birds search
       - name: Start sshx session on failed manual attempt
         if: ${{ failure() && (github.event_name == 'workflow_dispatch' || github.run_attempt > 1) }}
         run: curl -sSf https://sshx.io/get | sh && sshx

@@ -20,8 +20,8 @@ deploy:
 
 ## fetch cluster endpoint
 ping:
-	curl -Ss -m 5 http://localhost:6333/cluster
-	@curl -Ss -m 5 http://localhost:6333/cluster | jq -e '.status == "ok"' > /dev/null
+	curl -sS -m 5 http://localhost:6333/cluster
+	@curl -sS -m 5 http://localhost:6333/cluster | jq -e '.status == "ok"' > /dev/null
 
 ## create birds collection
 birds: $(venv)
@@ -29,10 +29,11 @@ birds: $(venv)
 
 ## search birds collection
 search:
-	@curl -s -L -X POST 'http://localhost:6333/collections/birds/points/search' -H 'Content-Type: application/json' --data-raw '{"vector": [0.1,0.1,0.1,0.1], "top": 3, "with_payload":true}'
+	@curl -sS -X POST 'http://localhost:6333/collections/birds/points/search' -H 'Content-Type: application/json' --data-raw '{"vector": [0.1,0.1,0.1,0.1], "top": 3, "with_payload":true}'
 
+## list all points in the birds collection
 scroll:
-	@curl 'http://localhost:6333/collections/birds/points/scroll' -H 'Content-Type: application/json' --data-raw '{"limit":10,"offset":null,"with_payload":true,"with_vector":true}'
+	@curl -sS 'http://localhost:6333/collections/birds/points/scroll' -H 'Content-Type: application/json' --data-raw '{"limit":10,"offset":null,"with_payload":true,"with_vector":true}'
 
 ## show kube logs
 logs:
