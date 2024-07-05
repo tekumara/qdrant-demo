@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        id: setup-python
+        uses: actions/setup-python@v5
+      - name: Cache virtualenv
+        id: cache-venv
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-py${{ steps.setup-python.outputs.python-version }}-venv-${{ hashFiles('pyproject.toml') }}
+      - name: make .venv
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        run: make .venv
+      - name: install k3d
+        run: curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+      - run: make kubes
+      - run: make deploy
+      - run: make ping
+      - name: Start sshx session on failed manual attempt
+        if: ${{ failure() && (github.event_name == 'workflow_dispatch' || github.run_attempt > 1) }}
+        run: curl -sSf https://sshx.io/get | sh && sshx
