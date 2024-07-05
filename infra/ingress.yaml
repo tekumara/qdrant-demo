@@ -62,42 +62,36 @@ spec:
     statefulset.kubernetes.io/pod-name: qdrant-2
 
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: strip-prefix
-  # No namespace defined
-spec:
-  stripPrefixRegex:
-    regex:
-    - ^/[^/]+
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: qdrant-all-nodes
-  annotations:
-    #ingress.kubernetes.io/ssl-redirect: "false"
-    traefik.ingress.kubernetes.io/router.middlewares: default-strip-prefix@kubernetescrd
+  name: qdrant-nodes
 spec:
   rules:
-  - http:
+  - host: qdrant-0.localhost
+    http:
       paths:
-      - path: /qdrant-0
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: qdrant-0
             port:
               number: 6333
-      - path: /qdrant-1
+  - host: qdrant-1.localhost
+    http:
+      paths:
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: qdrant-1
             port:
               number: 6333
-      - path: /qdrant-2
+  - host: qdrant-2.localhost
+    http:
+      paths:
+      - path: /
         pathType: Prefix
         backend:
           service:

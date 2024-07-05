@@ -37,6 +37,12 @@ Endpoints:
 - [Telemetry](https://qdrant.tech/documentation/guides/telemetry/): [http://localhost:6333/telemetry](http://localhost:6333/telemetry)
 - [Explore endpoints via Swagger UI](https://ui.qdrant.tech/)
 
+Individual node dashboards:
+
+- [qdrant-0](http://qdrant-0.localhost:8081/dashboard)
+- [qdrant-1](http://qdrant-1.localhost:8081/dashboard)
+- [qdrant-2](http://qdrant-2.localhost:8081/dashboard)
+
 ## References
 
 - [Quick Start using curl](https://github.com/qdrant/qdrant/blob/master/QUICK_START.md)
