@@ -8,10 +8,8 @@ kubes: cluster qdrant
 
 ## create k3s cluster
 cluster:
-	k3d cluster create $(cluster) -p 6333:6333@loadbalancer -p 6334:6334@loadbalancer --wait
+	k3d cluster create $(cluster) -p 8081:80@loadbalancer -p 6333:6333@loadbalancer -p 6334:6334@loadbalancer --wait
 	@k3d kubeconfig write $(cluster) > /dev/null
-	@echo "Probing until cluster is ready (~60 secs)..."
-	@while ! kubectl get crd ingressroutes.traefik.containo.us 2> /dev/null ; do sleep 10 && echo $$((i=i+10)); done
 	@echo -e "\nTo use your cluster set:\n"
 	@echo "export KUBECONFIG=$(KUBECONFIG)"
 
