@@ -35,6 +35,10 @@ search:
 scroll:
 	@curl -sS 'http://localhost:6333/collections/birds/points/scroll' -H 'Content-Type: application/json' --data-raw '{"limit":10,"offset":null,"with_payload":true,"with_vector":true}'
 
+## list all points in the birds collection
+count:
+	@curl -sS 'http://localhost:6333/collections/birds/points/count' -H 'Content-Type: application/json' --data-raw '{}'
+
 ## show kube logs
 logs:
 	kubectl logs -l "app.kubernetes.io/name=qdrant,app.kubernetes.io/instance=qdrant" -f --tail=-1
