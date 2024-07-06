@@ -22,6 +22,6 @@ do
     sleep 5
     kubectl delete pod qdrant-1
     sleep 10
-    .venv/bin/python -m src.demo.healthcheck
+    .venv/bin/python -m src.demo.healthcheck --assert-counts
 done
 cleanup

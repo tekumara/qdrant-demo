@@ -17,7 +17,7 @@ export const options = {
 
 const baseUrl = __ENV.BASE_URL || "http://localhost:6333";
 const apiKey = __ENV.API_KEY;
-const ordering = __ENV.ORDERING || "weak";
+const ordering = __ENV.ORDERING || "strong";
 const shardNumber = __ENV.SHARD_NUMBER && parseInt(__ENV.SHARD_NUMBER);
 const replicationFactor =
   __ENV.REPLICATION_FACTOR && parseInt(__ENV.REPLICATION_FACTOR) || 3;
