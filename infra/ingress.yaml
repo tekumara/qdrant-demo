@@ -5,10 +5,6 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - name: http
-    port: 6333
-    protocol: TCP
-    targetPort: 6333
   - name: grpc
     port: 6334
     protocol: TCP
@@ -65,9 +61,20 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: qdrant-nodes
+  name: qdrant
 spec:
   rules:
+  # balanced across all qdrant nodes
+  - host: localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qdrant
+            port:
+              number: 6333
   - host: qdrant-0.localhost
     http:
       paths:

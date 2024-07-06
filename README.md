@@ -32,16 +32,16 @@ make search
 
 Endpoints:
 
-- [Web UI](https://qdrant.tech/documentation/interfaces/#qdrant-web-ui): [http://localhost:6333/dashboard](http://localhost:6333/dashboard)
+- [Web UI](https://qdrant.tech/documentation/interfaces/web-ui/): [http://localhost:6333/dashboard](http://localhost:6333/dashboard)
 - [Metrics (prometheus)](https://qdrant.tech/documentation/guides/monitoring/): [http://localhost:6333/metrics](http://localhost:6333/metrics)
 - [Telemetry](https://qdrant.tech/documentation/guides/telemetry/): [http://localhost:6333/telemetry](http://localhost:6333/telemetry)
 - [Explore endpoints via Swagger UI](https://ui.qdrant.tech/)
 
-Individual node dashboards:
+Individual node Web UIs:
 
-- [qdrant-0](http://qdrant-0.localhost:8081/dashboard)
-- [qdrant-1](http://qdrant-1.localhost:8081/dashboard)
-- [qdrant-2](http://qdrant-2.localhost:8081/dashboard)
+- [qdrant-0](http://qdrant-0.localhost:6333/dashboard)
+- [qdrant-1](http://qdrant-1.localhost:6333/dashboard)
+- [qdrant-2](http://qdrant-2.localhost:6333/dashboard)
 
 ## References
 

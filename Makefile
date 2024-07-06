@@ -1,14 +1,14 @@
 include *.mk
+include .envrc
 
 cluster?=qdrant
-export KUBECONFIG=$(HOME)/.k3d/kubeconfig-$(cluster).yaml
 
 ## install demo, create k3d cluster and deploy
 all: install kubes deploy
 
 ## create k3d cluster
 kubes:
-	k3d cluster create $(cluster) -p 8081:80@loadbalancer -p 6333:6333@loadbalancer -p 6334:6334@loadbalancer --wait
+	k3d cluster create $(cluster) --config k3d-cluster.yaml --wait
 	@k3d kubeconfig write $(cluster) > /dev/null
 	@echo -e "\nTo use your cluster set:\n"
 	@echo "export KUBECONFIG=$(KUBECONFIG)"
