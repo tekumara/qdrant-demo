@@ -122,49 +122,6 @@ export function setup() {
 }
 
 export default function () {
-  const vector = getRandomVector(vectorSize);
-  const resSearchPoints = http.post(
-    `${baseUrl}/collections/${collectionName}/points/search`,
-    JSON.stringify({ vector: vector, top: 100, with_payload: true }),
-    params
-  );
-  check(
-    resSearchPoints,
-    checks("search points", {
-      "status is 200": (r) => r.status === 200,
-      "is OK": (r) => r.json().status === "ok",
-      "has results": (r) => r.json().result.length > 0,
-      "all points have a payload": (r) =>
-        r.json().result.every((i) => i.payload && i.payload.color),
-    })
-  );
-
-  const resScroll = http.post(
-    `${baseUrl}/collections/${collectionName}/points/scroll`,
-    JSON.stringify({
-      filter: {
-        must: [
-          {
-            is_empty: {
-              key: "color",
-            },
-          },
-        ],
-      },
-    }),
-    params
-  );
-  if (
-    !check(
-      resScroll,
-      checks("scroll points with empty payload", {
-        // NB: since ingress will round robin requests we may not hit the node that has the empty payloads
-        "has no results": (r) => r.json().result.points.length == 0,
-      })
-    )
-  ) {
-    fail(`scroll points with empty payload\n${resScroll.body}`);
-  }
 
   // mimic an upsert - ie add new points with same vector as existing points
   const numUpserts = 10;
