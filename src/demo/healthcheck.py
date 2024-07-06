@@ -1,3 +1,4 @@
+import sys
 import pydantic_core
 from qdrant_client import QdrantClient, models
 from qdrant_client.conversions import common_types as types
@@ -27,6 +28,8 @@ def main():
     print(f"{count0=}")
     print(f"{count1=}")
     print(f"{count2=}")
+    if count0 != count1 or count1 != count2:
+        sys.exit("Counts not equal")
 
     ep0 = empty_payloads(qc0)
     ep1 = empty_payloads(qc1)

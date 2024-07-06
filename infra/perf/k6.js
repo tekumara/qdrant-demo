@@ -31,6 +31,7 @@ if (apiKey) {
 const collectionName = `k6-perf-test`;
 const vectorSize = (__ENV.VECTOR_SIZE && parseInt(__ENV.VECTOR_SIZE)) || 1536;
 const initPoints = (__ENV.INIT_POINTS && parseInt(__ENV.INIT_POINTS)) || 1000;
+const deletePoints = __ENV.DELETE_POINTS && __ENV.DELETE_POINTS.toLowerCase() === 'true';
 
 const vectors = new SharedArray("shared vectors", function () {
   // called once and the result is shared among VUs
@@ -166,9 +167,8 @@ export default function () {
   }
 
   // mimic an upsert - ie add new points with same vector as existing points
-  // and delete some existing points
   const numUpserts = 10;
-  const operations = [
+  let operations = [
     {
       upsert: {
         batch: {
@@ -185,12 +185,15 @@ export default function () {
         },
       },
     },
-    {
+  ];
+
+  if (deletePoints) {
+    operations.push({
       delete: {
         filter: { must: [{ key: "color", match: { any: ["blue", "green"] } }] },
       },
-    },
-  ];
+    });
+  }
 
   const resBatchUpdatePoints = http.post(
     `${baseUrl}/collections/${collectionName}/points/batch?${stringifySearchParams(
