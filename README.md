@@ -10,10 +10,10 @@ Prerequisites:
 - kubectl
 - helm
 
-Create k3d cluster and deploy qdrant:
+Install python demo, create k3d cluster and deploy qdrant:
 
 ```
-make kubes
+make all
 ```
 
 Create `birds` collection:
