@@ -14,8 +14,8 @@ make perf
 | API_KEY                  |                         |
 | ORDERING                 | "weak"                  |
 | SHARD_NUMBER             |                         |
-| REPLICATION_FACTOR       | 1                       |
-| WRITE_CONSISTENCY_FACTOR | 1                       |
+| REPLICATION_FACTOR       | 3                       |
+| WRITE_CONSISTENCY_FACTOR | 3                       |
 | VECTOR_SIZE              | 1536                    |
 | INIT_POINTS              | 1000                    |
 

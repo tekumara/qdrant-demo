@@ -11,7 +11,7 @@ cleanup() {
 }
 
 echo Start perf workload
-ORDERING=strong DELETE_POINTS=true REPLICATION_FACTOR=3 WRITE_CONSISTENCY_FACTOR=3 k6 run --duration 60s infra/perf/k6.js &
+k6 run --duration 60s infra/perf/k6.js &
 k6_pid=$!
 
 # delete a pod and run the healthcheck

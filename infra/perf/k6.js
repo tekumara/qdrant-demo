@@ -20,9 +20,9 @@ const apiKey = __ENV.API_KEY;
 const ordering = __ENV.ORDERING || "weak";
 const shardNumber = __ENV.SHARD_NUMBER && parseInt(__ENV.SHARD_NUMBER);
 const replicationFactor =
-  __ENV.REPLICATION_FACTOR && parseInt(__ENV.REPLICATION_FACTOR);
+  __ENV.REPLICATION_FACTOR && parseInt(__ENV.REPLICATION_FACTOR) || 3;
 const writeConsistencyFactor =
-  __ENV.WRITE_CONSISTENCY_FACTOR && parseInt(__ENV.WRITE_CONSISTENCY_FACTOR);
+  __ENV.WRITE_CONSISTENCY_FACTOR && parseInt(__ENV.WRITE_CONSISTENCY_FACTOR) || 3;
 
 let params = { headers: { "content-type": "application/json" } };
 if (apiKey) {
