@@ -29,7 +29,7 @@ for _ in {1..4};
 do
     sleep 5
     kubectl delete pod qdrant-1
-    sleep 10
+    sleep 5
     if [[ "$1" == "upsert" ]]; then
         .venv/bin/python -m src.demo.healthcheck --assert-counts
     fi
