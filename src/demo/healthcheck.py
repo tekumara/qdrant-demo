@@ -1,47 +1,38 @@
-from typing import Iterable, List
 from qdrant_client import QdrantClient, models
-
-COLLECTION_NAME = "k6-perf-test"
-import httpx
+from qdrant_client.conversions import common_types as types
 
 
 def main():
-    # use httpx because qdrantclient
-    qdrant0_client = QdrantClient(
-        host="qdrant-0.localhost", prefer_grpc=True, port=6333
-    )
-    qdrant1_client = QdrantClient(
-        host="qdrant-1.localhost", prefer_grpc=True, port=6333
-    )
-    qdrant2_client = QdrantClient(
-        host="qdrant-2.localhost", prefer_grpc=True, port=6333
-    )
+    col_name = "k6-perf-test"
+    qc0 = QdrantClient(host="qdrant-0.localhost", port=6333)
+    qc1 = QdrantClient(host="qdrant-1.localhost", port=6333)
+    qc2 = QdrantClient(host="qdrant-2.localhost", port=6333)
 
-    count0 = qdrant0_client.count(
-        collection_name=COLLECTION_NAME,
-    )
-    count1 = qdrant1_client.count(
-        collection_name=COLLECTION_NAME,
-    )
-    count2 = qdrant2_client.count(
-        collection_name=COLLECTION_NAME,
-    )
-    print(f"{count0.count=}")
-    print(f"{count1.count=}")
-    print(f"{count2.count=}")
+    def empty_payloads(qc: QdrantClient) -> list[types.Record]:
+        points, _offset = qc.scroll(
+            collection_name=col_name,
+            limit=10,
+            scroll_filter=models.Filter(
+                must=[
+                    models.IsEmptyCondition(is_empty=models.PayloadField(key="color"))
+                ]
+            ),
+        )
+        return points
 
-    count0 = httpx.post(
-        f"http://qdrant-0.localhost:6333/collections/{COLLECTION_NAME}/points/count", json={}
-    ).json()["result"]["count"]
-    count1 = httpx.post(
-        f"http://qdrant-1.localhost:6333/collections/{COLLECTION_NAME}/points/count", json={}
-    ).json()["result"]["count"]
-    count2 = httpx.post(
-        f"http://qdrant-2.localhost:6333/collections/{COLLECTION_NAME}/points/count", json={}
-    ).json()["result"]["count"]
+    count0 = qc0.count(collection_name=col_name).count
+    count1 = qc1.count(collection_name=col_name).count
+    count2 = qc2.count(collection_name=col_name).count
     print(f"{count0=}")
     print(f"{count1=}")
     print(f"{count2=}")
+
+    ep0 = empty_payloads(qc0)
+    ep1 = empty_payloads(qc1)
+    ep2 = empty_payloads(qc2)
+    print(f"{ep0=}")
+    print(f"{ep1=}")
+    print(f"{ep2=}")
 
 
 if __name__ == "__main__":
