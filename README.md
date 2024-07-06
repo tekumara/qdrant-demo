@@ -9,6 +9,7 @@ Prerequisites:
 - [k3d](https://k3d.io/) (for creating a local kubernetes cluster)
 - kubectl
 - helm
+- [k6](https://k6.io/docs/get-started/installation/) (for perf test)
 
 Install python demo, create k3d cluster and deploy qdrant:
 

@@ -42,3 +42,7 @@ count:
 ## show kube logs
 logs:
 	kubectl logs -l "app.kubernetes.io/name=qdrant,app.kubernetes.io/instance=qdrant" -f --tail=-1
+
+## perf test:
+perf:
+	ORDERING=strong REPLICATION_FACTOR=3 WRITE_CONSISTENCY_FACTOR=3 k6 run --duration 60s infra/perf/k6.js

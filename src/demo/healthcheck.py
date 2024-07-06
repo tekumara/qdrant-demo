@@ -1,3 +1,4 @@
+import pydantic_core
 from qdrant_client import QdrantClient, models
 from qdrant_client.conversions import common_types as types
 
@@ -30,9 +31,9 @@ def main():
     ep0 = empty_payloads(qc0)
     ep1 = empty_payloads(qc1)
     ep2 = empty_payloads(qc2)
-    print(f"{ep0=}")
-    print(f"{ep1=}")
-    print(f"{ep2=}")
+    print(f"ep0={pydantic_core.to_jsonable_python(ep0)}")
+    print(f"ep1={pydantic_core.to_jsonable_python(ep1)}")
+    print(f"ep2={pydantic_core.to_jsonable_python(ep2)}")
 
 
 if __name__ == "__main__":
