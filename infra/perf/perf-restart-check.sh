@@ -31,7 +31,8 @@ do
     kubectl delete pod qdrant-1
     sleep 8
     if [[ "$1" == "upsert" ]]; then
-        .venv/bin/python -m src.demo.healthcheck --assert-counts
+        # double check in case we have counted whilst an upsert was in flight
+        .venv/bin/python -m src.demo.healthcheck --assert-counts || .venv/bin/python -m src.demo.healthcheck --assert-counts
     fi
     if [[ "$1" == "delete" ]]; then
         .venv/bin/python -m src.demo.healthcheck --assert-payload
