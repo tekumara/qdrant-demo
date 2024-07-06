@@ -4,7 +4,7 @@ replicaCount: 3
 
 image:
   repository: qdrant/qdrant
-  tag: v1.9.0
+  tag: v1.10.0
   useUnprivilegedImage: true
 
 resources:
