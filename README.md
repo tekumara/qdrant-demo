@@ -10,6 +10,7 @@ Prerequisites:
 - kubectl
 - helm
 - [k6](https://k6.io/docs/get-started/installation/) (for perf test)
+- python 3.10+
 
 Install python demo, create k3d cluster and deploy qdrant:
 

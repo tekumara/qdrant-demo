@@ -43,6 +43,18 @@ count:
 logs:
 	kubectl logs -l "app.kubernetes.io/name=qdrant,app.kubernetes.io/instance=qdrant" -f --tail=-1
 
-## perf test:
+## perf test
 perf:
 	k6 run --duration 60s infra/perf/k6.js
+
+## demo restart during upserts causes count inconsistency
+restart-with-upserts:
+	infra/perf/perf-restart-check.sh upsert
+
+## demo restart during deletes causes empty payloads
+restart-with-deletes:
+	infra/perf/perf-restart-check.sh delete
+
+## healthcheck all nodes
+healthcheck:
+	$(venv)/bin/python -m src.demo.healthcheck
