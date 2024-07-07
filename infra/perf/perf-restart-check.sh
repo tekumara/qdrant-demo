@@ -22,21 +22,22 @@ if [[ "$1" == "delete" ]]; then
 fi
 k6_pid=$!
 
-# delete a pod and run the healthcheck
-# when healthcheck fails the perf test will be terminated
-trap 'cleanup' ERR
-for _ in {1..4};
-do
+# on ctrl+c or when healthcheck below fails the perf test will be terminated
+trap cleanup INT ERR
+
+# loop while k6 is still running in background
+while ps -p $! > /dev/null; do
+    # delete a pod and run the healthcheck
     sleep 5
     kubectl delete pod qdrant-1
     sleep 8
     if [[ "$1" == "upsert" ]]; then
-        # double check in case we have counted whilst an upsert was in flight
-        .venv/bin/python -m src.demo.healthcheck --assert-counts || .venv/bin/python -m src.demo.healthcheck --assert-counts
+        # try multiple attempts in case we have counted whilst an upsert was in flight
+        .venv/bin/python -m src.demo.healthcheck --assert-counts --assert-counts-attempts 4
     fi
     if [[ "$1" == "delete" ]]; then
         .venv/bin/python -m src.demo.healthcheck --assert-payload
     fi
 done
 
-cleanup
+wait "$k6_pid"

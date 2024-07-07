@@ -58,3 +58,7 @@ restart-with-deletes:
 ## healthcheck all nodes
 healthcheck:
 	$(venv)/bin/python -m src.demo.healthcheck
+
+## show errors in logs 
+logs-errors:
+	stern qdrant -i '(?i)error' --tail 1
