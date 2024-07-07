@@ -53,7 +53,15 @@ Individual node Web UIs:
 
 ## Known issues
 
-> Internal communication channels are never protected by an API key nor bearer tokens. Internal gRPC uses port 6335 by default if running in distributed mode. You must ensure that this port is not publicly reachable and can only be used for node communication
+### Internal communication channels are never protected by an API key nor bearer tokens
+
+> Internal gRPC uses port 6335 by default if running in distributed mode. You must ensure that this port is not publicly reachable and can only be used for node communication
+
+### Consistency of write operations is only guaranteed if the operation was accepted
+
+[`write_consistency_factor`](https://qdrant.tech/documentation/guides/distributed_deployment/#write-consistency-factor) sets the number of replicas that must acknowledge the write for the operation to be accepted. To consistently accept writes, this implies that `write_consistency_factor` should be less than the number of replicas/nodes available during node restarts due to maintenance, upgrades, OOMKilled etc. See [#4626](https://github.com/qdrant/qdrant/issues/4626#issuecomment-2212415559).
+
+### Other issues
 
 - [#3360 Failed send message to http://qdrant-1.qdrant-headless:6335/ with error: Error in closure supplied to transport channel pool: status: Unavailable](https://github.com/qdrant/qdrant/issues/3360) during indexing because of OOM errors
 - [Backpressure when updating points to avoid OOM](https://github.com/qdrant/qdrant/issues/4169)
