@@ -68,4 +68,4 @@ Individual node Web UIs:
 - [Snapshot storage on S3 #3324](https://github.com/qdrant/qdrant/issues/3324)
 - [Cluster level snapshot API #2763](https://github.com/qdrant/qdrant/issues/2763)
 - [Optimistic concurrency control](https://github.com/qdrant/qdrant/issues/2749)
-- Points with empty payloads
+- [Points with empty payloads](https://github.com/qdrant/qdrant/issues/4627)

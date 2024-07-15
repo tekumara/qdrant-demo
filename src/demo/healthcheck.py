@@ -44,9 +44,9 @@ def healthcheck(assert_counts: bool, assert_payloads: bool, assert_attempts: int
         empty0 = empty_payloads(qc0)
         empty1 = empty_payloads(qc1)
         empty2 = empty_payloads(qc2)
-        print(f"empty0={pydantic_core.to_jsonable_python(empty0)}")
-        print(f"empty1={pydantic_core.to_jsonable_python(empty1)}")
-        print(f"empty2={pydantic_core.to_jsonable_python(empty2)}")
+        print(f"empty0={pydantic_core.to_json(empty0)}")
+        print(f"empty1={pydantic_core.to_json(empty1)}")
+        print(f"empty2={pydantic_core.to_json(empty2)}")
         if assert_payloads and (len(empty0) + len(empty1) + len(empty2) > 0):
             raise AssertionError("Empty payloads")
 
